@@ -1,6 +1,45 @@
+require 'pry'
+
 class Scrabble
+
   def score(word)
-    0
+    if is_valid_word?(word)
+      sum_point_values(word)
+    elsif (word == 0) | (word.nil?)
+      0
+    else
+      "Sorry, that is not a valid word."
+    end
+  end
+
+  def is_valid_word?(word)
+    if is_not_string(word)
+      false
+    elsif all_chars_valid?(word)
+      true
+    else
+      false
+    end
+  end
+
+  def is_not_string(word)
+    word.class != String
+  end
+
+  def all_chars_valid?(word)
+    word.upcase.chars.map do |char|
+      point_values.keys.include?(char)
+    end.all? { |char| char == true }
+  end
+
+  def sum_point_values(word)
+    if word == ""
+      0
+    else
+      word.upcase.chars.map do |char|
+        point_values[char]
+      end.reduce(:+)
+    end
   end
 
   def point_values
