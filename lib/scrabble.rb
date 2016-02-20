@@ -29,7 +29,7 @@ class Scrabble
   def all_chars_valid?(word)
     word.upcase.chars.map do |char|
       point_values.keys.include?(char)
-    end.all? { |char| char == true }
+    end.all? { |value| value == true }
   end
 
   def sum_point_values(word)
